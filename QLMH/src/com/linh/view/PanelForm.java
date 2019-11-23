@@ -8,6 +8,7 @@ package com.linh.view;
 import com.linh.controller.Controller;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -214,9 +215,15 @@ public class PanelForm extends javax.swing.JFrame {
         this.txtTenHang = txtTenHang;
     }
 
+    public JTextField getTxtNama() {
+        return txtNama;
+    }
+
+    public void setTxtNama(JTextField txtNama) {
+        this.txtNama = txtNama;
+    }
     
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -244,6 +251,8 @@ public class PanelForm extends javax.swing.JFrame {
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
+        txtNama = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -312,11 +321,17 @@ public class PanelForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("Tim kiem:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(310, 310, 310)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -351,22 +366,22 @@ public class PanelForm extends javax.swing.JFrame {
                                     .addComponent(txtNhaCungCap))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(59, 59, 59)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnTimKiem)
+                        .addGap(56, 56, 56)
+                        .addComponent(btnThem)
+                        .addGap(35, 35, 35)
+                        .addComponent(btnSua)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnXoa))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnTimKiem)
-                .addGap(39, 39, 39)
-                .addComponent(btnThem)
-                .addGap(35, 35, 35)
-                .addComponent(btnSua)
-                .addGap(40, 40, 40)
-                .addComponent(btnXoa)
-                .addGap(80, 80, 80))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(310, 310, 310)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,11 +425,13 @@ public class PanelForm extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnThem)
-                        .addComponent(btnTimKiem))
+                    .addComponent(btnThem)
                     .addComponent(btnSua)
-                    .addComponent(btnXoa))
+                    .addComponent(btnXoa)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnTimKiem)
+                        .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10)))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
 
@@ -423,22 +440,42 @@ public class PanelForm extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        controller.insert();
-        controller.isiTabel();
+        int x=JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn thêm ?","Bạn có chắc chắn? ",JOptionPane.OK_CANCEL_OPTION);
+        if(x==JOptionPane.OK_OPTION){
+            
+            if("".equals(txtMaHang.getText()) && "".equals(txtTenHang.getText()) && "".equals(txtSoLuong.getText()) && "".equals(txtGiaBanLe.getText())
+                    && "".equals(txtGiaBanBuon.getText()) && "".equals(txtGiaNhap.getText()) && "".equals(txtNhaCungCap.getText()) && "".equals(txtNgayNhap.getText())){
+                JOptionPane.showMessageDialog(this,"Không được để trống toàn bộ !!!","Thông báo !",JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                    controller.insert();
+                    controller.isiTabel();
+                    controller.reset();
+                } 
+        }  
         controller.reset();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        controller.update();
-        controller.isiTabel();
+        int x=JOptionPane.showConfirmDialog(this, "Bạn co chắc muốn sửa ?","Bạn có chắc chắn? ",JOptionPane.OK_CANCEL_OPTION);
+        if(x==JOptionPane.OK_OPTION){
+            controller.update();
+            controller.isiTabel();
+            controller.reset();
+        }
         controller.reset();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        controller.delete();
-        controller.isiTabel();
+        int x=JOptionPane.showConfirmDialog(this, "Bạn co chắc muốn xóa ?","Bạn có chắc chắn? ",JOptionPane.OK_CANCEL_OPTION);
+        if(x==JOptionPane.OK_OPTION){
+            controller.delete();
+            controller.isiTabel();
+            controller.reset();
+        }
+        
         controller.reset();
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -493,6 +530,7 @@ public class PanelForm extends javax.swing.JFrame {
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -507,6 +545,7 @@ public class PanelForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtGiaBanLe;
     private javax.swing.JTextField txtGiaNhap;
     private javax.swing.JTextField txtMaHang;
+    private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtNgayNhap;
     private javax.swing.JTextField txtNhaCungCap;
     private javax.swing.JTextField txtSoLuong;

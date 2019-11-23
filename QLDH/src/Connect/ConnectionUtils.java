@@ -11,8 +11,7 @@ public class ConnectionUtils {
  
   public static Connection getMyConnection() throws SQLException,
           ClassNotFoundException {
-      // Sử dụng Oracle.
-      // Bạn có thể thay thế bởi Database nào đó.
+      
       return MySQLConnUtils.getMySQLConnection();
   }
  

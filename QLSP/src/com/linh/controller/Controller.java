@@ -1,9 +1,7 @@
 package com.linh.controller;
 
 import com.linh.mode.Product;
-import com.linh.model.dao.ImplementProduct;
-import com.linh.model.dao.ProductDAO;
-import com.linh.model.table.TableModel;
+import com.linh.model.database.ProductX;
 import com.linh.view.PanelForm;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -14,12 +12,11 @@ import javax.swing.JOptionPane;
 public class Controller {
     private final PanelForm panel;
     private List<Product> list;
-    private final ImplementProduct implementProduct;
+    ProductX p = new ProductX();
     
     public Controller(PanelForm panel) {
         this.panel = panel;
-        implementProduct = new ProductDAO();
-        list = implementProduct.getAllProduct();
+        list = p.getAllProduct();
     }
     
     public void reset(){
@@ -37,7 +34,7 @@ public class Controller {
     }
     
     public void isiTabel(){
-        list = implementProduct.getAllProduct();
+        list = p.getAllProduct();
         panel.getjTable1().setModel(new TableModel(list));
         
     }
@@ -72,7 +69,7 @@ public class Controller {
         product.setEmail(panel.getTxtEmail().getText());
         product.setKhac(panel.getTxtKhac().getText());
         
-        implementProduct.input(product);
+        p.input(product);
     }
 
     public void update(){
@@ -87,7 +84,7 @@ public class Controller {
         product.setEmail(panel.getTxtEmail().getText());
         product.setKhac(panel.getTxtKhac().getText());
         
-        implementProduct.update(product);
+        p.update(product);
     
     }
     
@@ -100,7 +97,7 @@ public class Controller {
         
         String ID = panel.getTxtId().getText();
         
-        implementProduct.delete(ID);
+        p.delete(ID);
         
     }
     
@@ -114,13 +111,13 @@ public class Controller {
         
         String nama = panel.getTxtId().getText();
         
-        implementProduct.getProduct(nama);
+        p.getProduct(nama);
         isiTabelCari(nama);
     }
 
    public void isiTabelCari(String ID){
         
-        list = implementProduct.getProduct(ID);
+        list = p.getProduct(ID);
         panel.getjTable1().setModel(new TableModel(list));
     }
 }

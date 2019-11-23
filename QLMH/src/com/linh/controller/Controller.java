@@ -1,9 +1,7 @@
 package com.linh.controller;
 
 import com.linh.model.Product;
-import com.linh.model.dao.ImplementProduct;
-import com.linh.model.dao.ProductDAO;
-import com.linh.model.table.TableModel;
+import com.linh.model.database.ProductO;
 import com.linh.view.PanelForm;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -15,12 +13,11 @@ import javax.swing.JOptionPane;
 public class Controller {
     private final PanelForm panel;
     private List<Product> list;
-    private final ImplementProduct implementProduct;
+    ProductO p = new ProductO();
     
     public Controller(PanelForm panel) {
         this.panel = panel;
-        implementProduct = new ProductDAO();
-        list = implementProduct.getAllProduct();
+        list = p.getAllProduct();
     }
     
     public void reset(){
@@ -38,7 +35,7 @@ public class Controller {
     }
     
     public void isiTabel(){
-        list = implementProduct.getAllProduct();
+        list = p.getAllProduct();
         panel.getjTable1().setModel(new TableModel(list));
         
     }
@@ -73,8 +70,8 @@ public class Controller {
         product.setNhaCungCap(panel.getTxtNhaCungCap().getText());
         product.setDob(panel.getTxtNgayNhap().getText());
         
-        implementProduct.input(product);
-    }
+        p.input(product);
+}
 
     public void update(){
         
@@ -88,40 +85,40 @@ public class Controller {
         product.setNhaCungCap(panel.getTxtNhaCungCap().getText());
         product.setDob(panel.getTxtNgayNhap().getText());
         
-        implementProduct.update(product);
+        p.update(product);
     
     }
     
     public void delete(){
         
         if (panel.getTxtMaHang().getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(panel, "No data deleted....? ",null, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(panel, "Khong co du lieu de xoa....? ",null, JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         String MaHang = panel.getTxtMaHang().getText();
         
-        implementProduct.delete(MaHang);
+        p.delete(MaHang);
         
     }
     
     
     public void getData(){
         
-        if (panel.getTxtMaHang().getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(panel, "Isi data Nama yang mau di cari....? ", null, JOptionPane.WARNING_MESSAGE);
+        if (panel.getTxtNama().getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(panel, "Dien ten vao du lieu ban muon tim kiem ? ", null, JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        String MaHang = panel.getTxtMaHang().getText();
+        String nama = panel.getTxtNama().getText();
         
-        implementProduct.getProduct(MaHang);
-        isiTabelCari(MaHang);
+        p.getProduct(nama);
+        isiTabelCari(nama);
     }
 
    public void isiTabelCari(String MaHang){
         
-        list = implementProduct.getProduct(MaHang);
+        list = p.getProduct(MaHang);
         panel.getjTable1().setModel(new TableModel(list));
     }
 }

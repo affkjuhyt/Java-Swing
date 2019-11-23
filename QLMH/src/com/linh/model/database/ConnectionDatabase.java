@@ -14,7 +14,7 @@ public class ConnectionDatabase {
     
     private static Connection connection;
     
-    public static Connection getConnection(){
+    public static Connection getConnection() throws SQLException{
         
         if (connection == null){
             
@@ -32,7 +32,7 @@ public class ConnectionDatabase {
     return connection;
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         
       ConnectionDatabase.getConnection();
     }
