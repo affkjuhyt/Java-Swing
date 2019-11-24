@@ -1,18 +1,70 @@
 package com.linh.controller;
 
-import com.linh.mode.Product;
-import com.linh.model.database.ProductX;
+import com.linh.mode.Shiper;
 import com.linh.view.PanelForm;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 /**
  *
  * @author Thien Linh
  */
 public class Controller {
     private final PanelForm panel;
-    private List<Product> list;
-    ProductX p = new ProductX();
+    private List<Shiper> list;
+    Shiper p = new Shiper();
+    
+    public class TableModel extends AbstractTableModel{
+    private static final long serialVersionUID = 1L;
+
+    List<Shiper> list ;
+
+    public TableModel(List<Shiper> list) {
+        this.list = list;
+    }
+       
+    
+    @Override
+    public int getRowCount() {
+        return list.size();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return 8;
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        switch (columnIndex) {
+            case 0 : return list.get(rowIndex).getId();
+            case 1 : return list.get(rowIndex).getHoVaTen();
+            case 2 : return list.get(rowIndex).getTenDangNhap();
+            case 3 : return list.get(rowIndex).getMatKhau();
+            case 4 : return list.get(rowIndex).getSoDienThoai();
+            case 5 : return list.get(rowIndex).getBienSoXe();
+            case 6 : return list.get(rowIndex).getEmail();
+            case 7 : return list.get(rowIndex).getKhac();
+                default:return null;
+        }
+    }
+
+    @Override
+    public String getColumnName(int column) {
+        switch (column) {
+            case 0 : return "Id";
+            case 1 : return "HoVaTen";
+            case 2 : return "TenDangNhap";
+            case 3 : return "MatKhau";
+            case 4 : return "SoDienThoai";
+            case 5 : return "BienSoXe";
+            case 6 : return "Email";
+            case 7 : return "Khac";
+            
+                default:return null;
+        }
+    }
+}
     
     public Controller(PanelForm panel) {
         this.panel = panel;
@@ -59,7 +111,7 @@ public class Controller {
     
     public void insert(){
         
-        Product product = new Product();
+        Shiper product = new Shiper();
         product.setId(panel.getTxtId().getText());
         product.setHoVaTen(panel.getTxtHoVaTen().getText());
         product.setTenDangNhap(panel.getTxtTenDangNhap().getText());
@@ -74,7 +126,7 @@ public class Controller {
 
     public void update(){
         
-        Product product = new Product();
+        Shiper product = new Shiper();
         product.setId(panel.getTxtId().getText());
         product.setHoVaTen(panel.getTxtHoVaTen().getText());
         product.setTenDangNhap(panel.getTxtTenDangNhap().getText());
