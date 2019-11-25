@@ -1,14 +1,7 @@
 package view;
 
 import Controller.controller;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 import model.nhandon;
@@ -17,98 +10,16 @@ import model.nhandon;
  * @author Thien Linh
  */
 public class main extends javax.swing.JFrame {
-
-    private static String DB_URL = "jdbc:mysql://localhost:3306/congnghephanmem";
-    private static String USER_NAME = "root";
-    private static String PASSWORD = "123456";
-
-    public static Connection getConnection(String dbURL, String userName,
-            String password) {
-        Connection conn = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(dbURL, userName, password);
-            System.out.println("connect successfully!");
-        } catch (Exception ex) {
-            System.out.println("connect failure!");
-            ex.printStackTrace();
-        }
-        return conn;
-    }
     
     public main() {
         initComponents();
         
-        ArrayList<nhandon> list = new ArrayList<>();
-        list = loadData();
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.getDataVector().removeAllElements();
-
-        for (int i = 0; i < list.size(); i++) {
-
-            Object[] ob = new Object[]{list.get(i).getId(), list.get(i).getDiaChi(), list.get(i).getTenHang(), list.get(i).getThoiGian(), list.get(i).getTrangThai(), list.get(i).getKhachHang()};
-            model.addRow(ob);
-        }
+        controller con = new controller();
+        con.isiTabel();
         setVisible(true);
-        setDefaultCloseOperation(HIDE_ON_CLOSE);
     }
     
     
-    public static ArrayList<nhandon> loadData() {
-        ArrayList<nhandon> list = new ArrayList<>();
-        try {
-            // connnect to database 'testdb'
-            Connection conn = getConnection(DB_URL, USER_NAME, PASSWORD);
-            // crate statement
-            Statement stmt = conn.createStatement();
-            // get data from table 'student'\
-            //  WHERE lastname LIKE '% " + lastname.getText() + " '% "
-            ResultSet rs = stmt.executeQuery("select * from donhang where trangthai LIKE 'pending' ");
-            // show data
-            while (rs.next()) {
-                System.out.println(rs.getInt(1) + "  " + rs.getString(2)
-                        + "  " + rs.getString(3) + "  " + rs.getString(4) + "  " + rs.getString(5));
-
-                nhandon tmp = new nhandon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
-                list.add(tmp);
-            }
-            // close connection
-            conn.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return list;
-
-    }
-    
-     public static ArrayList<nhandon> loadData2() {
-        ArrayList<nhandon> list = new ArrayList<>();
-        try {
-            // connnect to database 'testdb'
-            Connection conn = getConnection(DB_URL, USER_NAME, PASSWORD);
-            // crate statement
-            Statement stmt = conn.createStatement();
-            // get data from table 'student'\
-            //  WHERE lastname LIKE '% " + lastname.getText() + " '% "
-            ResultSet rs = stmt.executeQuery("select * from donhang where trangthai LIKE 'Active' ");
-            // show data
-            while (rs.next()) {
-                System.out.println(rs.getInt(1) + "  " + rs.getString(2)
-                        + "  " + rs.getString(3) + "  " + rs.getString(4) + "  " + rs.getString(5));
-
-                nhandon tmp = new nhandon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
-                list.add(tmp);
-            }
-            // close connection
-            conn.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return list;
-
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -257,48 +168,30 @@ public class main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-        try {
-            int row = jTable1.getSelectedRow();
-            System.out.println(row);
-            int id = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
-            System.out.println(jTable1.getValueAt(row, 0));
-            controller ctr = new controller();
-            ctr.updateHoaDon(id);
-            ctr.createBangShip(id);
-
-           
+        int row = jTable1.getSelectedRow();
+        System.out.println(row);
+        int id = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+        System.out.println(jTable1.getValueAt(row, 0));
+        controller ctr = new controller();
+        ArrayList<nhandon> list = new ArrayList<>();
+        list = nhandon.loadData();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.getDataVector().removeAllElements();
+        for (int i = 0; i < list.size(); i++) {
             
-            ArrayList<nhandon> list = new ArrayList<>();
-            list = loadData();
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.getDataVector().removeAllElements();
-//        tften.setText(kh.getTen());
-
-            for (int i = 0; i < list.size(); i++) {
-
-                Object[] ob = new Object[]{list.get(i).getId(), list.get(i).getDiaChi(), list.get(i).getKhachHang(), list.get(i).getTenHang(), list.get(i).getThoiGian(), list.get(i).getTrangThai()};
+            Object[] ob = new Object[]{list.get(i).getId(), list.get(i).getDiaChi(), list.get(i).getKhachHang(), list.get(i).getTenHang(), list.get(i).getThoiGian(), list.get(i).getTrangThai()};
 //            tong+=list.get(i).getGia();
-                model.addRow(ob);
-            }
+model.addRow(ob);
+        }
+        ArrayList<nhandon> list2 = new ArrayList<>();
+        list2 = nhandon.loadData2();
+        DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
+        model2.getDataVector().removeAllElements();
+        for (int i = 0; i < list2.size(); i++) {
             
-            
-            ArrayList<nhandon> list2 = new ArrayList<>();
-            list2 = loadData2();
-            DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
-            model2.getDataVector().removeAllElements();
-//        tften.setText(kh.getTen());
-
-            for (int i = 0; i < list2.size(); i++) {
-
-                Object[] ob = new Object[]{list2.get(i).getId(), list2.get(i).getDiaChi(), list2.get(i).getKhachHang(), list2.get(i).getTenHang(), list2.get(i).getThoiGian(), list2.get(i).getTrangThai()};
+            Object[] ob = new Object[]{list2.get(i).getId(), list2.get(i).getDiaChi(), list2.get(i).getKhachHang(), list2.get(i).getTenHang(), list2.get(i).getThoiGian(), list2.get(i).getTrangThai()};
 //            tong+=list.get(i).getGia();
-                model2.addRow(ob);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+model2.addRow(ob);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

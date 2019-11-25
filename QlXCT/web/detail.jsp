@@ -5,7 +5,6 @@
 --%>
 
 <%@page import="model.SanPham"%>
-<%@page import="dao.SanPhamDAOImpl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,7 +27,8 @@
     </head>
     <body>
         <%
-           SanPhamDAOImpl sanPhamDAO = new SanPhamDAOImpl();
+           SanPham sanPhamDAO = new SanPham();
+           // Lay gia tri gui len tu client
            SanPham sp = sanPhamDAO.getChiTietSanPham(request.getParameter("ma_san_pham"));
         %>
         

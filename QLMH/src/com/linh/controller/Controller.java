@@ -124,6 +124,7 @@ public class Controller {
         product.setNhaCungCap(panel.getTxtNhaCungCap().getText());
         product.setDob(panel.getTxtNgayNhap().getText());
         
+        
         p.input(product);
 }
 
@@ -161,20 +162,21 @@ public class Controller {
     
     public void getData(){
         
+        
         if (panel.getTxtNama().getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(panel, "Dien ten vao du lieu ban muon tim kiem ? ", null, JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         String nama = panel.getTxtNama().getText();
-        
-        p.getProduct(nama);
+        p.setMaHang(nama);
+        p.getProduct();
         isiTabelCari(nama);
     }
 
    public void isiTabelCari(String MaHang){
         
-        list = p.getProduct(MaHang);
+        list = p.getProduct();
         panel.getjTable1().setModel(new TableModel(list));
     }
    

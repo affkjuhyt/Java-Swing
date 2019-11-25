@@ -5,7 +5,6 @@
 --%>
 
 <%@page import="model.DanhMuc"%>
-<%@page import="dao.DanhMucDAOImpl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,7 +20,7 @@
     </head>
     <body>
          <%
-             DanhMucDAOImpl danhMucDAO = new DanhMucDAOImpl();
+             DanhMuc danhMucDAO = new DanhMuc();
          %>
         <div class="col-sm-3">
             <div class="left-sidebar">

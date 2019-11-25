@@ -156,12 +156,12 @@ public class Product {
   
     }
      
-    public List<Product> getProduct(String MaHang) {
+    public List<Product> getProduct() {
         list = new ArrayList<Product>(); 
         try {
             
             Statement statement = ConnectionDatabase.getConnection().createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM tblQlmh WHERE MaHang LIKE '%" + MaHang + "%'");
+            ResultSet result = statement.executeQuery("SELECT * FROM tblQlmh WHERE MaHang LIKE '%" + maHang + "%'");
             
             while (result.next()) { 
                 Product product = new Product();

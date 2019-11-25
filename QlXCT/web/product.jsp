@@ -6,7 +6,6 @@
 
 <%@page import="java.text.NumberFormat"%>
 <%@page import="model.SanPham"%>
-<%@page import="dao.SanPhamDAOImpl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,7 +22,7 @@
     </head>
     <body>
         <%
-            SanPhamDAOImpl sanPhamDAO = new SanPhamDAOImpl();
+            SanPham sanPhamDAO = new SanPham();
             NumberFormat nf = NumberFormat.getInstance();
             nf.setMinimumIntegerDigits(0);
         %>
